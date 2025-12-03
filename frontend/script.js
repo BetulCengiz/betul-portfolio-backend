@@ -15,7 +15,7 @@ themeToggle.addEventListener('click', () => {
 });
 
 // --- CHATBOT MANTIĞI ---
-
+const API_URL = "https://betul-portfolio-backend.onrender.com"  ; // Backend API URL'si
 // Chatbot'u Aç/Kapa
 function toggleChat() {
     const chatWidget = document.getElementById('chat-widget');
@@ -47,25 +47,41 @@ async function sendMessage() {
 
     if (message === "") return;
 
-    // 1. Kullanıcı mesajını ekrana ekle
     addMessage(message, 'user-message');
     inputField.value = "";
 
-    // 2. "Yazıyor..." efekti (Simülasyon)
     const loadingId = addMessage("Yanıt hazırlanıyor...", 'bot-message', true);
 
-    // --- BURASI DAHA SONRA PYTHON BACKEND'E BAĞLANACAK ---
-    // Şimdilik sadece görsel test için gecikmeli sahte cevap veriyoruz.
-    setTimeout(() => {
+    try {
+        // API'ye POST isteği gönder
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // Gövdeye soruyu JSON formatında ekle
+            body: JSON.stringify({ question: message })
+        });
+
         // Yükleniyor mesajını kaldır
         const loadingMsg = document.getElementById(loadingId);
         if(loadingMsg) loadingMsg.remove();
-
-        // Sahte cevap
-        const mockResponse = "Şu anda Python arka yüzüme bağlı değilim, bu yüzden sadece görsel bir demoyum. Yakında RAG ve Gemini API ile gerçek cevaplar vereceğim!";
-        addMessage(mockResponse, 'bot-message');
         
-    }, 1500); 
+        if (!response.ok) {
+            throw new Error(`HTTP Hata kodu: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Gelen cevabı ekrana yazdır (data.answer)
+        addMessage(data.answer, 'bot-message'); 
+
+    } catch (error) {
+        console.error("API Hatası:", error);
+        const loadingMsg = document.getElementById(loadingId);
+        if(loadingMsg) loadingMsg.remove();
+        addMessage("API'ye ulaşılamıyor veya sunucu hatası oluştu. (Konsolu kontrol edin)", 'bot-message');
+    }
 }
 
 // Enter tuşu ile gönderme
