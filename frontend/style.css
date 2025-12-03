@@ -1,0 +1,107 @@
+/* --- TEMEL DEĞİŞKENLER (Renk Paleti) --- */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #6C63FF; /* Modern Mor */
+    --secondary-color: #f4f4f4;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    /* Chatbot Renkleri */
+    --chat-bg: #ffffff;
+    --chat-header-bg: #6C63FF;
+    --chat-header-text: #ffffff;
+    --msg-user: #6C63FF;
+    --msg-bot: #f1f1f1;
+}
+
+/* KARANLIK MOD (Dark Mode) */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-color: #8A85FF;
+    --secondary-color: #1e1e1e;
+    --card-bg: #1e1e1e;
+    --shadow: 0 4px 6px rgba(0,0,0,0.5);
+    
+    --chat-bg: #2c2c2c;
+    --msg-bot: #3a3a3a;
+}
+
+/* --- GENEL STİLLER --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-color); transition: 0.3s; line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* --- LOGO STİLLERİ --- */
+.logo-img { 
+    height: 80px; /* Logo boyutunu ayarlayın */
+    width: auto;  /* Logo boyutunu ayarlayın */
+    vertical-align: middle; /* Metin/ikonlarla aynı hizada kalmasını sağlar */
+}
+/* Navbar */
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 10%; background: var(--bg-color); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow); }
+.logo { font-size: 1.5rem; font-weight: 600; }
+.logo span { color: var(--primary-color); }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a:hover { color: var(--primary-color); }
+.btn-icon { background: none; border: none; cursor: pointer; color: var(--text-color); font-size: 1.2rem; }
+
+/* Hero Section */
+.hero { height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
+.hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+.highlight { color: var(--primary-color); }
+.hero-buttons { margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; }
+
+/* Butonlar */
+.btn { padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; font-weight: 600; transition: 0.3s; border: none; }
+.btn-primary { background: var(--primary-color); color: #fff; }
+.btn-primary:hover { opacity: 0.9; }
+.btn-secondary { background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--text-color); }
+
+/* Section Genel */
+.section { padding: 4rem 10%; }
+.section-title { text-align: center; font-size: 2rem; margin-bottom: 3rem; color: var(--primary-color); }
+
+/* Kartlar (Deneyim & Proje) */
+.card, .project-card { background: var(--card-bg); padding: 2rem; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 1.5rem; transition: transform 0.3s; }
+.card:hover, .project-card:hover { transform: translateY(-5px); }
+.company { display: block; font-size: 0.9rem; color: #888; margin-bottom: 1rem; }
+.grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.tags span { display: inline-block; background: var(--secondary-color); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.8rem; margin-right: 0.5rem; margin-top: 1rem; }
+
+/* --- CHATBOT WIDGET STİLLERİ --- */
+.chat-widget {
+    position: fixed; bottom: 20px; right: 20px; width: 350px;
+    background: var(--chat-bg); border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    display: flex; flex-direction: column; overflow: hidden;
+    transition: all 0.3s ease; z-index: 2000;
+}
+.chat-widget.closed { height: 60px; } /* Kapalıyken sadece başlık görünür */
+
+.chat-header {
+    background: var(--chat-header-bg); color: var(--chat-header-text);
+    padding: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+}
+.chat-body { height: 350px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+
+.message { padding: 10px 15px; border-radius: 10px; max-width: 80%; font-size: 0.9rem; }
+.bot-message { background: var(--msg-bot); align-self: flex-start; color: var(--text-color); }
+.user-message { background: var(--msg-user); color: #fff; align-self: flex-end; }
+
+.chat-input-area { padding: 10px; border-top: 1px solid rgba(0,0,0,0.1); display: flex; gap: 10px; background: var(--chat-bg); }
+.chat-input-area input { flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ccc; outline: none; background: var(--card-bg); color: var(--text-color); }
+.chat-input-area button { background: var(--primary-color); color: #fff; border: none; padding: 10px 15px; border-radius: 50%; cursor: pointer; }
+
+/* Footer */
+footer { text-align: center; padding: 2rem; background: var(--secondary-color); margin-top: 2rem; }
+.socials a { margin: 0 10px; font-size: 1.5rem; color: var(--text-color); }
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    .navbar { padding: 1rem 5%; }
+    .hero h1 { font-size: 2rem; }
+    .chat-widget { width: 90%; right: 5%; bottom: 10px; }
+}
